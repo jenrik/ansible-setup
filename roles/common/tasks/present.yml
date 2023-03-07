@@ -1,0 +1,11 @@
+---
+- name: Remove shell snippets
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "~/.sh.d/{{ item }}"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: u=rwx,go=rx
+  loop:
+    - "50-mkcd.sh"
+    - "50-clipboard.sh"

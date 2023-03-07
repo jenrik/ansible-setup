@@ -1,0 +1,8 @@
+---
+- name: Remove shell snippets
+  ansible.builtin.file:
+    path: "~/.sh.d/{{ item }}"
+    state: absent
+  loop:
+    - "50-mkcd.sh"
+    - "50-clipboard.sh"

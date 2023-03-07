@@ -1,0 +1,40 @@
+---
+- name: Add/Remove git
+  when: ansible_distribution == "Archlinux"
+  become: true
+  community.general.pacman:
+    name: zsh
+
+- name: Add/Remove git
+  when: ansible_distribution == "Ubuntu"
+  become: true
+  ansible.builtin.apt:
+    name: zsh
+
+- name: Install oh-my-zsh
+  when: minimal is false && state == "present"
+  changed_when: "'Run zsh to try it out.' in zsh_install_omz.stdout"
+  ansible.builtin.shell: |
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended --keep-zshrc
+  register: zsh_instal_omz
+
+- name: Uninstall oh-my-zsh
+  when: minimal is true or state == "absent"
+  ansible.builtin.file:
+    path: "~/.oh-my-zsh"
+    state: absent
+
+- name: Configure shell for oh-my-zsh
+  when: minimal is false && state == "present"
+  ansible.builtin.template:
+    src: "oh-my-zsh.sh.j2"
+    dest: "~/.sh.d/00-oh-my-zsh.sh"
+    mode: u=rwx,go=rx
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+
+- name: Remove oh-my-zsh from shell config
+  when: minimal is true or state == "absent"
+  ansible.builtin.file:
+    path: "~/.sh.d/00-oh-my-zsh.sh"
+    state: absent

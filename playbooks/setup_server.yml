@@ -1,0 +1,13 @@
+---
+- name: Setup server
+  hosts: all
+  gather_facts: true
+  become: false
+  vars_prompt:
+    - name: state
+      prompt: Install or uninstall (absent; present)
+      default: present
+      private: false
+      confirm: true
+  roles:
+    - role: "vim"

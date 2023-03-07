@@ -1,0 +1,23 @@
+---
+argument_specs:
+  main:
+    options:
+      state:
+        type: str
+        choices:
+          - present
+          - absent
+      minimal:
+        type: bool
+        default: true
+      oh_my_zsh_plugins:
+        type: list
+        elements: str
+      oh_my_zsh_theme:
+        type: str
+        default: "robbyrussell"
+      ansible_distribution:
+        type: str
+        choices:
+          - Archlinux
+          - Ubuntu

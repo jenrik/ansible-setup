@@ -1,0 +1,9 @@
+---
+argument_specs:
+  main:
+    options:
+      ansible_distribution:
+        type: str
+        choices:
+          - Archlinux
+          - Ubuntu

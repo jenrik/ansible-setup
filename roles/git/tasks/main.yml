@@ -1,0 +1,44 @@
+---
+- name: Add/Remove git
+  when: ansible_distribution == "Archlinux"
+  become: true
+  community.general.pacman:
+    name: git
+
+- name: Add/Remove git
+  when: ansible_distribution == "Ubuntu"
+  become: true
+  ansible.builtin.apt:
+    name: git
+
+- name: Git check received objects
+  community.general.git_config:
+    name: "receive.fsckObjects"
+    value: "true"
+    scope: global
+
+- name: Git check transfered objects
+  community.general.git_config:
+    name: "transfer.fsckObjects"
+    value: "true"
+    scope: global
+
+- name: Git push default to current branch
+  community.general.git_config:
+    name: "psuh.default"
+    value: "current"
+    scope: global
+
+- name: Git auto set remote on new branch push
+  community.general.git_config:
+    name: "push.autoSetupRemote"
+    value: "true"
+    scope: global
+
+- name: Git policitally correct default branch
+  community.general.git_config:
+    name: "init.defaultBranch"
+    value: "main"
+    scope: global
+
+# Should we configure user name and email?

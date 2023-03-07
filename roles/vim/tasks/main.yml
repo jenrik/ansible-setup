@@ -1,0 +1,51 @@
+---
+- name: Install/Uninstall Neovim
+  when: ansible_distribution == "Archlinux"
+  community.general.pacman:
+    name: neovim
+
+- name: Install/Uninstall Neovim
+  when: ansible_distribution == "Ubuntu"
+  ansible.builtin.apt:
+    name: neovim
+
+- name: Neovim config directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
+    state: "{% if state == 'present' %}directory{% else %}{{ state }}{% endif %}"
+    mode: u=rwx,go=rx
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+
+- name: Neovim autoload directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.XDG_DATA_HOME | default(ansible_env.HOME + '/.local/share') }}/nvim/site/autoload/"
+    state: "{% if state == 'present' %}directory{% else %}{{ state }}{% endif %}"
+    mode: u=rwx,go=rx
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+
+- name: Configure .vimrc
+  ansible.builtin.copy:
+    src: ".vimrc"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/init.vim"
+    mode: u=rw,g=r,o=
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+
+- name: Install vim-plug
+  when: state == "present"
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    dest: "{{ ansible_env.XDG_DATA_HOME | default(ansible_env.HOME + '/.local/share') }}/nvim/site/autoload/plug.vim"
+    mode: u=rw,g=r,o=
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+
+- name: Configure shell
+  ansible.builtin.copy:
+    src: "configure-shell.sh"
+    dest: "{{ ansible_env.XDG_HOME | default(ansible_env.HOME) }}/.sh.d/vim.sh"
+    mode: u=rwx,go=rx
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"

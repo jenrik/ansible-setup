@@ -1,0 +1,5 @@
+---
+profile: production
+loop_var_prefix: "^(__|{role}_)"
+skip_list:
+  - "galaxy[no-changelog]"

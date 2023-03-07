@@ -1,0 +1,25 @@
+---
+- name: Setup desktop
+  hosts: all
+  gather_facts: true
+  become: false
+  vars_prompt:
+    - name: state
+      prompt: Install or uninstall (absent; present)
+      default: present
+      private: false
+      confirm: true
+  roles:
+    - role: "zsh"
+      vars:
+        minimal: false
+    - role: "git"
+    - role: "vim"
+  tasks:
+    - name: Create project directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.XDG_HOME | default(ansible_env.HOME) }}/projects"
+        state: "{% if state == present %}directory{% else %}{{ state }}{% endif %}"
+        owner: "{{ ansible_user_uid }}"
+        group: "{{ ansible_user_gid }}"
+        mode: u=rwx,g=rx,o=

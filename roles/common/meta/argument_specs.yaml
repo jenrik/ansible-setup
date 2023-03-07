@@ -1,0 +1,9 @@
+---
+argument_specs:
+  main:
+    options:
+      state:
+        type: str
+        choices:
+          - present
+          - absent

@@ -1,0 +1,4 @@
+---
+- name: Ensure state
+  ansible.builtin.include_tasks:
+    file: "{{ state }}.yml"

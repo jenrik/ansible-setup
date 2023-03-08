@@ -30,8 +30,3 @@ done
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$HOME/.local/bin:$PATH"
 alias paur=paru
-
-function fixwifi()
-{
-    sudo modprobe --remove ath10k_pci && sudo modprobe ath10k_pci
-}

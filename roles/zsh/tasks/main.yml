@@ -1,18 +1,40 @@
 ---
-- name: Add/Remove git
+- name: Add/Remove zsh
   when: ansible_distribution == "Archlinux"
   become: true
   community.general.pacman:
     name: zsh
 
-- name: Add/Remove git
+- name: Add/Remove zsh
   when: ansible_distribution == "Ubuntu"
   become: true
   ansible.builtin.apt:
     name: zsh
 
+- name: Install ZSH config
+  when: state == "present"
+  ansible.builtin.copy:
+    src: "zshrc"
+    dest: "~/.zshrc"
+    mode: u=rwx,go=rx
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+
+- name: Remove ZSH config
+  when: state == "absent"
+  ansible.builtin.file:
+    path: "~/.zshrc"
+    state: absent
+
+- name: Check oh-my-zsh installation
+  ansible.builtin.stat:
+    path: "~/.oh-my-zsh"
+    get_checksum: false
+    get_mime: false
+  register: zsh_omz_dir
+
 - name: Install oh-my-zsh
-  when: minimal is false && state == "present"
+  when: minimal is false and state == "present" and not zsh_omz_dir.stat.exists
   changed_when: "'Run zsh to try it out.' in zsh_install_omz.stdout"
   ansible.builtin.shell: |
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended --keep-zshrc
@@ -24,8 +46,16 @@
     path: "~/.oh-my-zsh"
     state: absent
 
+- name: Shell script snippet directory
+  ansible.builtin.file:
+    path: "~/.sh.d"
+    state: "{% if state == 'present' %}directory{% else %}{{ state }}{% endif %}"
+    mode: u=rwx,go=rx
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+
 - name: Configure shell for oh-my-zsh
-  when: minimal is false && state == "present"
+  when: minimal is false and state == "present"
   ansible.builtin.template:
     src: "oh-my-zsh.sh.j2"
     dest: "~/.sh.d/00-oh-my-zsh.sh"

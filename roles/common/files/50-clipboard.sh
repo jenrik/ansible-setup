@@ -1,4 +1,4 @@
-if env | grep -P "^WAYLAND_DISPLAY="
+if [ "$XDG_SESSION_TYPE" = "wayland" ]
 then
 	alias clipinspect='wl-paste | xxd'
 	alias clipin='wl-copy'

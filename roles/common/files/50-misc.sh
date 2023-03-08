@@ -1,0 +1,1 @@
+alias lsblk='lsblk -o NAME,MAJ:MIN,SIZE,RO,TYPE,MOUNTPOINT,PHY-SEC,LOG-SEC'

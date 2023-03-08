@@ -27,7 +27,7 @@
 
 - name: Configure .vimrc
   ansible.builtin.copy:
-    src: ".vimrc"
+    src: "vimrc"
     dest: "{{ ansible_env.HOME }}/.config/nvim/init.vim"
     mode: u=rw,g=r,o=
     owner: "{{ ansible_user_uid }}"

@@ -10,4 +10,4 @@
       private: false
       confirm: true
   roles:
-    - role: "vim"
+    - role: "jenrik.setup.vim"

@@ -1,6 +1,6 @@
 ---
 - name: Setup desktop
-  hosts: all
+  hosts: localhost
   gather_facts: true
   become: false
   vars_prompt:
@@ -10,16 +10,16 @@
       private: false
       confirm: true
   roles:
-    - role: "zsh"
+    - role: "jenrik.setup.zsh"
       vars:
         minimal: false
-    - role: "git"
-    - role: "vim"
+    - role: "jenrik.setup.git"
+    - role: "jenrik.setup.vim"
   tasks:
     - name: Create project directory
       ansible.builtin.file:
         path: "{{ ansible_env.XDG_HOME | default(ansible_env.HOME) }}/projects"
-        state: "{% if state == present %}directory{% else %}{{ state }}{% endif %}"
+        state: "{% if state == 'present' %}directory{% else %}{{ state }}{% endif %}"
         owner: "{{ ansible_user_uid }}"
         group: "{{ ansible_user_gid }}"
-        mode: u=rwx,g=rx,o=
+        mode: u=rwx,go=rx

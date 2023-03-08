@@ -1,0 +1,15 @@
+---
+- name: Setup Archlinux
+  when: ansible_distribution == "Archlinux"
+  ansible.builtin.include_tasks:
+    file: "{{ state }}.yml"
+
+- name: Setup Archlinux packages
+  when: ansible_distribution == "Archlinux"
+  ansible.builtin.include_tasks:
+    file: "common.yml"
+
+- name: When on non-Archlinux systems
+  when: ansible_distribution != "Archlinux"
+  ansible.builtin.debug:
+    msg: "Archlinux role is only supported when running on Archlinux"

@@ -1,0 +1,14 @@
+---
+- name: Add/Remove packages
+  become: true
+  community.general.pacman:
+    name:
+      - sway
+      - swaybg
+      - swayidle
+      - swaylock
+      - alacritty
+      - mako
+      - brightnessctl
+      - pavucontrol-qt
+      - waybar

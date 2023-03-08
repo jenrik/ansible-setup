@@ -1,0 +1,30 @@
+- name: SDDM configs
+  become: true
+  ansible.builtin.copy:
+    src: "sddm/{{ item }}"
+    dest: "/etc/sddm.conf.d/{{ item }}"
+    owner: 0
+    group: 0
+    mode: u=rw,go=r
+  loop:
+    - "10-wayland.conf"
+    - "dpi.conf"
+    - "theme.conf"
+
+- name: Paru config
+  ansible.builtin.copy:
+    src: "paru"
+    dest: "~/.config/"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: u=rw,go=r
+    directory_mode: u=rwx,go=rx
+
+- name: Sway config
+  ansible.builtin.copy:
+    src: "sway"
+    dest: "~/.config/"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: u=rw,go=r
+    directory_mode: u=rwx,go=rx

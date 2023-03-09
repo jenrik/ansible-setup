@@ -1,0 +1,8 @@
+profile laptop-only {
+    output "Sharp Corporation 0x148D Unknown" enable scale 1.5
+}
+
+profile home-docked {
+    output "Samsung Electric Company SE790C Unknown" mode 3440x1440 position 0,0
+    output "Sharp Corporation 0x148D Unknown" enable scale 2 position 3440,0
+}

@@ -1,0 +1,10 @@
+[Unit]
+Description=KDE KRunner daemon
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/krunner --daemon
+
+[Install]
+WantedBy=sway-session.target

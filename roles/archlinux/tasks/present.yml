@@ -28,3 +28,34 @@
     group: "{{ ansible_user_gid }}"
     mode: u=rw,go=r
     directory_mode: u=rwx,go=rx
+
+- name: Systemd units
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "~/.config/systemd/user/{{ item.path }}"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: u=rw,go=r
+  with_community.general.filetree: "systemd/"
+
+- name: Reload user Systemd
+  ansible.builtin.systemd:
+    scope: user
+    daemon_reload: true
+
+- name: Systemd user service
+  ansible.builtin.systemd:
+    scope: user
+    name: "{{ item.path }}"
+    enabled: true
+  with_community.general.filetree: "systemd/"
+  when: item.path | splitext | last == ".service"
+
+- name: Kanshi config
+  ansible.builtin.copy:
+    src: "kanshi"
+    dest: "~/.config/"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: u=rw,go=r
+    directory_mode: u=rwx,go=rx

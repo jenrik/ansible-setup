@@ -1,0 +1,10 @@
+[Unit]
+Description=Signal Messager
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/signal-desktop --use-tray-icon --start-in-tray
+
+[Install]
+WantedBy=sway-session.target

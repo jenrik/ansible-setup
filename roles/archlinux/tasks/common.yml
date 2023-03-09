@@ -12,3 +12,5 @@
       - brightnessctl
       - pavucontrol-qt
       - waybar
+      - kanshi
+      - krunner

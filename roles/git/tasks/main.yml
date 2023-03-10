@@ -1,14 +1,6 @@
 ---
 - name: Add/Remove git
-  when: ansible_distribution == "Archlinux"
-  become: true
-  community.general.pacman:
-    name: git
-
-- name: Add/Remove git
-  when: ansible_distribution == "Ubuntu"
-  become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: git
 
 - name: Git check received objects

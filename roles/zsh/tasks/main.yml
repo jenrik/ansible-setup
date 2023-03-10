@@ -1,14 +1,7 @@
 ---
 - name: Add/Remove zsh
-  when: ansible_distribution == "Archlinux"
   become: true
-  community.general.pacman:
-    name: zsh
-
-- name: Add/Remove zsh
-  when: ansible_distribution == "Ubuntu"
-  become: true
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: zsh
 
 - name: Install ZSH config

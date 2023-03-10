@@ -1,12 +1,7 @@
 ---
-- name: Install/Uninstall Neovim
-  when: ansible_distribution == "Archlinux"
-  community.general.pacman:
-    name: neovim
-
-- name: Install/Uninstall Neovim
-  when: ansible_distribution == "Ubuntu"
-  ansible.builtin.apt:
+- name: Install/Uninstall neovim
+  become: true
+  ansible.builtin.package:
     name: neovim
 
 - name: Neovim config directory

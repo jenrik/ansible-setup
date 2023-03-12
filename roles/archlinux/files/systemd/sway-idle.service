@@ -1,0 +1,17 @@
+[Unit]
+Description=Lock screen on idle
+BindsTo=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swayidle -w \
+    timeout 1800 'swaylock -f' \
+    timeout 1805 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+    lock 'swaylock -f' \
+    unlock 'killall -s USR1 swaylock'
+    before-sleep 'swaylock -f' \
+    before-sleep 'playerctl pause' \
+
+[Install]
+WantedBy=sway-session.target

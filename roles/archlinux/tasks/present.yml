@@ -48,6 +48,7 @@
     scope: user
     name: "{{ item.path }}"
     enabled: true
+  ignore_errors: "{{ ansible_check_mode }}"
   with_community.general.filetree: "systemd/"
   when: item.path | splitext | last == ".service"
 

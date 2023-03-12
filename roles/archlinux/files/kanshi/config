@@ -1,5 +1,5 @@
 profile laptop-only {
-    output "Sharp Corporation 0x148D Unknown" enable scale 1.5
+    output "Sharp Corporation 0x148D Unknown" enable scale 2
 }
 
 profile home-docked {

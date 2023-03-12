@@ -10,3 +10,5 @@
     - sipcalc
     - htop
     - glances
+    - ncdu
+    - bc

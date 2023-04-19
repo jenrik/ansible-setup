@@ -32,6 +32,7 @@ set shiftwidth=4
 set tabstop=4
 syntax on
 set confirm
+set cursorline
 
 noremap ; l
 noremap j k

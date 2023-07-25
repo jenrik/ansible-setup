@@ -27,3 +27,15 @@
   ansible.builtin.file:
     path: "~/.config/kanshi"
     state: absent
+
+- name: Global environment variables
+  ansible.builtin.file:
+    path: "~/.pam_environment"
+    state: absent
+
+- name: Remove shell snippets
+  ansible.builtin.file:
+    path: "~/.sh.d/{{ item }}"
+    state: absent
+  loop:
+    - "50-fixwifi.sh"

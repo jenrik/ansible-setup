@@ -8,7 +8,7 @@
       prompt: Install or uninstall (absent; present)
       default: present
       private: false
-      confirm: true
+      confirm: "{{ not ansible_check_mode }}"
   roles:
     - role: "jenrik.setup.zsh"
       vars:

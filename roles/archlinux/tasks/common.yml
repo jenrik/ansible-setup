@@ -13,4 +13,4 @@
       - pavucontrol-qt
       - waybar
       - kanshi
-      - krunner
+      - rofi

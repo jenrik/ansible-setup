@@ -1,28 +1,14 @@
--- local use = require('packer').use
--- require('packer').startup(function()
---   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
---   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
---   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
---   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
---   use 'L3MON4D3/LuaSnip' -- Snippets plugin
---   use 'frazrepo/vim-rainbow'
---   use 'hashivim/vim-terraform'
---   use 'airblade/vim-gitgutter'
---   use 'neovim/nvim-lspconfig'
---   use 'simrat39/rust-tools.nvim'
---   use 'nvim-treesitter/nvim-treesitter'
--- end)
 
-vim.cmd([[
 " https://github.com/junegunn/vim-plug
-call plug#begin('~/.vim/plugged')
+vim.call('plug#begin', '~/.vim/plugged')
 
 Plug 'frazrepo/vim-rainbow'
 Plug 'hashivim/vim-terraform'
 Plug 'airblade/vim-gitgutter'
+Plug '' 
 Plug 'neovim/nvim-lspconfig'
 Plug 'simrat39/rust-tools.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug('nvim-treesitter/nvim-treesitter', {on = 'TSUpdate'})
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
@@ -30,6 +16,7 @@ Plug 'L3MON4D3/LuaSnip'
 
 call plug#end()
 
+vim.cmd([[
 " Hybrid numbers for active buffer
 " https://jeffkreeftmeijer.com/vim-number/
 :set number
@@ -69,7 +56,16 @@ highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
 " Save with sudo
-cnoremap w!! w !sudo tee > /dev/null %
+cmap w!! w !sudo tee > /dev/null %
+
+" Ansible
+" au BufRead,BufNewFile */ansible/plays/*.yml set filetype=yaml.ansible
+" au BufRead,BufNewFile */ansible/plays/*.yaml set filetype=yaml.ansible
+
+" Restore cursor position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
 ]])
 
 -- Add additional capabilities supported by nvim-cmp
@@ -78,7 +74,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+-- pyritght
+local servers = { 'clangd', 'rust_analyzer', 'tsserver' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -142,8 +139,8 @@ vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=jso
 vim.cmd([[let g:terraform_fmt_on_save=1]])
 vim.cmd([[let g:terraform_align=1]])
 -- Tearraform language server
-require'lspconfig'.terraformls.setup{}
-require'lspconfig'.tflint.setup{}
+lspconfig.terraformls.setup{}
+lspconfig.tflint.setup{}
 
 -- keymap("n", "<leader>ti", ":!terraform init<CR>", opts)
 -- keymap("n", "<leader>tv", ":!terraform validate<CR>", opts)

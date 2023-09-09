@@ -74,6 +74,14 @@ set splitright
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
+
+" Highlight cursor line underneath the cursor horizontally.
+set cursorline
+
+" Highlight cursor line underneath the cursor vertically.
+au BufRead,BufNewFile *.yaml set cursorcolumn
+au BufRead,BufNewFile *.yml set cursorcolumn
+au BufRead,BufNewFile *.json set cursorcolumn
 ]])
 
 -- Add additional capabilities supported by nvim-cmp

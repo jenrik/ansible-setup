@@ -9,4 +9,4 @@ else
 	alias clipin='xclip -in -selection clipboard'
 	alias clipout='xclip -out -selection clipboard'
 	alias clipqr='qrencode -t utf8 $(clipout)'
-if
+fi

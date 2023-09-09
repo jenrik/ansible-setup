@@ -7,11 +7,6 @@ profile home-docked {
     output "Sharp Corporation 0x148D Unknown" enable scale 2 position 3440,0
 }
 
-profile home-docked2 {
-    output "Samsung Electric Company SE790C HTRGA01030" mode 3440x1440 position 0,0
-    output "Sharp Corporation 0x148D Unknown" enable scale 2 position 3440,0
-}
-
 profile julie-docked {
     output "Sharp Corporation 0x148D Unknown" enable scale 2 position 1920,0
     output "Dell Inc. DELL P2314H J8J3138HA6DL" enable scale 1 position 0,0

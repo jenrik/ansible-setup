@@ -21,7 +21,7 @@
   ansible.builtin.copy:
     path: "~/.config/systemd/user/{{ item.path }}"
     state: absent
-  with_community.general.filetree: "systemd/"
+  with_community.general.filetree: "{{ 'systemd/' }}"
 
 - name: Kanshi config
   ansible.builtin.file:

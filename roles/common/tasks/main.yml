@@ -4,6 +4,7 @@
     file: "{{ state }}.yml"
 
 - name: Install/Remove packages
+  become: true
   ansible.builtin.package:
     name: "{{ item }}"
   loop:
@@ -12,3 +13,6 @@
     - glances
     - ncdu
     - bc
+    - jq
+    - yq
+    - ripgrep

@@ -10,6 +10,7 @@
       private: false
       confirm: "{{ not ansible_check_mode }}"
   roles:
+    - role: "jenrik.setup.common"
     - role: "jenrik.setup.zsh"
       vars:
         minimal: false

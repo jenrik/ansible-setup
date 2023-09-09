@@ -1,11 +1,11 @@
+local Plug = vim.fn['plug#']
 
-" https://github.com/junegunn/vim-plug
 vim.call('plug#begin', '~/.vim/plugged')
 
 Plug 'frazrepo/vim-rainbow'
 Plug 'hashivim/vim-terraform'
 Plug 'airblade/vim-gitgutter'
-Plug '' 
+Plug 'tpope/vim-fugitive'
 Plug 'neovim/nvim-lspconfig'
 Plug 'simrat39/rust-tools.nvim'
 Plug('nvim-treesitter/nvim-treesitter', {on = 'TSUpdate'})
@@ -13,8 +13,11 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
+--Plug('neoclide/coc.nvim', {branch = 'release'})
+--Plug 'pearofducks/ansible-vim'
+--Plug('yaegassy/coc-ansible', {on = 'yarnpkg install --frozen-lockfile'})
 
-call plug#end()
+vim.call('plug#end')
 
 vim.cmd([[
 " Hybrid numbers for active buffer
@@ -50,13 +53,18 @@ noremap j h
 set hlsearch
 set incsearch
 set smartcase
+set shortmess-=S " search match count
 
 " Highlight trailing whitespace
 highlight RedundantSpaces ctermbg=red guibg=red
 match RedundantSpaces /\s\+$/
 
 " Save with sudo
-cmap w!! w !sudo tee > /dev/null %
+cnoremap w!! w !sudo tee > /dev/null %
+
+" Split the natural way
+set splitbelow
+set splitright
 
 " Ansible
 " au BufRead,BufNewFile */ansible/plays/*.yml set filetype=yaml.ansible
@@ -74,8 +82,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- pyritght
-local servers = { 'clangd', 'rust_analyzer', 'tsserver' }
+-- pyright
+local servers = { 'clangd', 'rust_analyzer', 'tsserver',  }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,

@@ -17,7 +17,7 @@
 
 - name: Git push default to current branch
   community.general.git_config:
-    name: "psuh.default"
+    name: "push.default"
     value: "current"
     scope: global
 

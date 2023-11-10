@@ -1,5 +1,5 @@
 ---
 state: present
 minimal: true
-oh_my_zsh_plugins: ["git"]
+oh_my_zsh_plugins: ["git", "fzf"]
 oh_my_zsh_theme: "robbyrussell"

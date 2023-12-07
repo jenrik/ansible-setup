@@ -7,5 +7,10 @@
     group: "{{ ansible_user_gid }}"
     mode: u=rwx,go=rx
   loop:
-    - "50-mkcd.sh"
+    - "50-alias.sh"
+    - "50-cargo-bins.sh"
     - "50-clipboard.sh"
+    - "50-fixwifi.sh"
+    - "50-misc.sh"
+    - "50-mkcd.sh"
+    - "50-utime.sh"

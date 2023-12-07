@@ -77,5 +77,4 @@
     owner: "{{ ansible_user_uid }}"
     group: "{{ ansible_user_gid }}"
     mode: u=rwx,go=rx
-  loop:
-    - "50-fixwifi.sh"
+  loop: []

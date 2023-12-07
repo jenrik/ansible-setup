@@ -82,6 +82,10 @@ set cursorline
 au BufRead,BufNewFile *.yaml set cursorcolumn
 au BufRead,BufNewFile *.yml set cursorcolumn
 au BufRead,BufNewFile *.json set cursorcolumn
+
+" Vertical bar
+set list
+set listchars=tab:→\ ,space:·,nbsp:␣
 ]])
 
 -- Add additional capabilities supported by nvim-cmp

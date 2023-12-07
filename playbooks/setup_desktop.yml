@@ -14,6 +14,9 @@
     - role: "jenrik.setup.zsh"
       vars:
         minimal: false
+        oh_my_zsh_plugins:
+          - git
+          - fzf
     - role: "jenrik.setup.git"
     - role: "jenrik.setup.vim"
     - role: "jenrik.setup.archlinux"

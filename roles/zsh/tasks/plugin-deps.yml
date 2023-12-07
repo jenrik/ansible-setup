@@ -1,0 +1,7 @@
+---
+# Plugin: fzf
+- name: Add/Remove fzf plugin dependency
+  when: "'fzf' in oh_my_zsh_plugins or state == 'absent'"
+  become: true
+  ansible.builtin.package:
+    name: fzf

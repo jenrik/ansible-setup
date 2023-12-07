@@ -4,6 +4,9 @@
   ansible.builtin.package:
     name: zsh
 
+##
+# Install
+##
 - name: Install ZSH config
   when: state == "present"
   ansible.builtin.copy:
@@ -33,6 +36,9 @@
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended --keep-zshrc
   register: zsh_instal_omz
 
+##
+# Uninstall
+##
 - name: Uninstall oh-my-zsh
   when: minimal is true or state == "absent"
   ansible.builtin.file:
@@ -61,3 +67,9 @@
   ansible.builtin.file:
     path: "~/.sh.d/00-oh-my-zsh.sh"
     state: absent
+
+###
+# Plugin dependencies
+###
+- name: Plugin dependencies
+  ansible.builtin.include_tasks: plugin-deps.yml

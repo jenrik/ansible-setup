@@ -70,7 +70,7 @@ ZSH_THEME="{{ oh_my_zsh_theme }}"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-{%- if oh_my_zsh_plugins | length > 0 %}
+{% if oh_my_zsh_plugins | length > 0 %}
 plugins=({{ oh_my_zsh_plugins | join(' ') }})
 {%- endif %}
 

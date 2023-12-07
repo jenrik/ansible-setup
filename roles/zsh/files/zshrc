@@ -30,4 +30,3 @@ done
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PS1="$(hostname) $PS1"
 export PATH="$HOME/.local/bin:$PATH"
-alias paur=paru

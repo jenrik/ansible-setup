@@ -4,9 +4,11 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-input * {
+input "type:keyboard" {
     xkb_layout "us"
     xkb_variant "altgr-intl"
+    #xkb_layout "dk"
+    xkb_options caps:ctrl_modifier
 }
 
 ### Variables
@@ -219,6 +221,26 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+#
+# Multimedia controls
+#
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Search exec $menu
+
+#
+# Screenshot
+#
+
+bindsym $mod+Shift+s exec grimshot save screen
+
 # Fix dialog boxes
 # https://www.reddit.com/r/swaywm/comments/11h3y7i/comment/jarrdrf/
 for_window [window_role="pop-up"] floating enable
@@ -234,6 +256,8 @@ for_window [class="Dialog"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [window_role="About"] floating enable
+for_window [app_id="com/.https://ultimaker.UltiMaker-Cura" title="Multiply Selected Model"] floating enable
+for_window [app_id="com/.https://ultimaker.UltiMaker-Cura" title="UltiMaker-Cura"] floating enable
 
 # Move KRunner up to be more comfortable, and to avoid it moving
 for_window [app_id="org.kde.krunner"] move up 300px

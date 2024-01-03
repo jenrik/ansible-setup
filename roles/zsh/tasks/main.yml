@@ -31,7 +31,7 @@
 
 - name: Install oh-my-zsh
   when: minimal is false and state == "present" and not zsh_omz_dir.stat.exists
-  changed_when: "'Run zsh to try it out.' in zsh_install_omz.stdout"
+  changed_when: "'Run zsh to try it out.' in zsh_install_omz.stdout_lines"
   ansible.builtin.shell: |
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended --keep-zshrc
   register: zsh_instal_omz

@@ -2,6 +2,6 @@
 # Plugin: fzf
 - name: Add/Remove fzf plugin dependency
   when: "'fzf' in oh_my_zsh_plugins or state == 'absent'"
-  become: true
+  become: "{{ ansible_distribution != 'MacOSX' }}"
   ansible.builtin.package:
     name: fzf

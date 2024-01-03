@@ -1,6 +1,6 @@
 ---
 - name: Add/Remove zsh
-  become: true
+  become: "{{ ansible_distribution != 'MacOSX' }}"
   ansible.builtin.package:
     name: zsh
 

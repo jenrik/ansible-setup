@@ -1,6 +1,6 @@
 ---
 - name: Install/Uninstall neovim
-  become: true
+  become: "{{ ansible_distribution != 'MacOSX' }}"
   ansible.builtin.package:
     name: neovim
 
@@ -19,6 +19,7 @@
     mode: u=rwx,go=rx
     owner: "{{ ansible_user_uid }}"
     group: "{{ ansible_user_gid }}"
+  register: vim_autoload_dir
 
 - name: Configure .vimrc
   ansible.builtin.copy:
@@ -29,7 +30,7 @@
     group: "{{ ansible_user_gid }}"
 
 - name: Install vim-plug
-  when: state == "present"
+  when: state == "present" and not (ansible_check_mode and vim_autoload_dir.changed)
   ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     dest: "{{ ansible_env.XDG_DATA_HOME | default(ansible_env.HOME + '/.local/share') }}/nvim/site/autoload/plug.vim"

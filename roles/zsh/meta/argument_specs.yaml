@@ -16,8 +16,3 @@ argument_specs:
       oh_my_zsh_theme:
         type: str
         default: "robbyrussell"
-      ansible_distribution:
-        type: str
-        choices:
-          - Archlinux
-          - Ubuntu

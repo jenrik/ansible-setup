@@ -5,3 +5,10 @@
   become: "{{ ansible_distribution != 'MacOSX' }}"
   ansible.builtin.package:
     name: fzf
+
+# Plugin: bgnotify
+- name: Add/Remove bgnotify plugin dependency
+  when: "'bgnotify' in oh_my_zsh_plugins or state == 'absent'"
+  become: true
+  ansible.builtin.package:
+    name: libnotify

@@ -10,3 +10,5 @@
     - "50-misc.sh"
     - "50-mkcd.sh"
     - "50-utime.sh"
+    # Non-mimimal setup
+    - "50-bgnotify.sh"

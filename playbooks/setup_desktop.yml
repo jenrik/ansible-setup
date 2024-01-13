@@ -17,6 +17,7 @@
         oh_my_zsh_plugins:
           - git
           - fzf
+          - bgnotify
     - role: "jenrik.setup.git"
     - role: "jenrik.setup.vim"
     - role: "jenrik.setup.archlinux"

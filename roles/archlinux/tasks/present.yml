@@ -29,6 +29,15 @@
     mode: u=rw,go=r
     directory_mode: u=rwx,go=rx
 
+- name: Waybar config
+  ansible.builtin.copy:
+    src: "waybar"
+    dest: "~/.config/"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: u=rw,go=r
+    directory_mode: u=rwx,go=rx
+
 - name: Systemd units
   ansible.builtin.copy:
     src: "{{ item.src }}"
@@ -72,9 +81,10 @@
 
 - name: Add shell snippets
   ansible.builtin.copy:
-    src: "shell-snippets/{{ item }}"
+    src: "scripts/{{ item }}"
     dest: "~/.sh.d/{{ item }}"
     owner: "{{ ansible_user_uid }}"
     group: "{{ ansible_user_gid }}"
     mode: u=rwx,go=rx
-  loop: []
+  loop:
+    - "50-jetbrains-toolbox.sh"

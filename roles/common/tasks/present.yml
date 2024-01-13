@@ -13,3 +13,14 @@
     - "50-misc.sh"
     - "50-mkcd.sh"
     - "50-utime.sh"
+
+- name: Add shell snippets (non-minimal setup)
+  when: "not minimal"
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "~/.sh.d/{{ item }}"
+    owner: "{{ ansible_user_uid }}"
+    group: "{{ ansible_user_gid }}"
+    mode: u=rwx,go=rx
+  loop:
+    - "50-bgnotify.sh"
